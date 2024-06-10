@@ -518,6 +518,7 @@ abstract class DioMixin implements Dio {
         stream,
         cancelToken?.whenCancel,
       );
+      responseBody.headers.remove(Headers.wwwAuthenticateHeader);
       final headers = Headers.fromMap(
         responseBody.headers,
         preserveHeaderCase: reqOpt.preserveHeaderCase,
@@ -719,6 +720,7 @@ abstract class DioMixin implements Dio {
       final T? data = response.data as T?;
       final Headers headers;
       if (data is ResponseBody) {
+        data.headers.remove(Headers.wwwAuthenticateHeader);
         headers = Headers.fromMap(
           data.headers,
           preserveHeaderCase: requestOptions.preserveHeaderCase,
